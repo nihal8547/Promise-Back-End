@@ -147,6 +147,50 @@
             </div>
           </div>
         </div>
+
+        <!-- Edit Doctor Modal -->
+        <div v-if="showEditModal" class="modal-overlay" @click="closeEditModal">
+          <div class="modal" @click.stop>
+            <div class="modal-header">
+              <h3>Edit Doctor</h3>
+              <button class="close-btn" @click="closeEditModal">×</button>
+            </div>
+            <div class="modal-body">
+              <form @submit.prevent="updateDoctor">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Name *</label>
+                    <input type="text" v-model="editingDoctor.name" required />
+                  </div>
+                  <div class="form-group">
+                    <label>Designation *</label>
+                    <input type="text" v-model="editingDoctor.designation" required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Testimonial *</label>
+                  <textarea v-model="editingDoctor.message" rows="4" required placeholder="Enter doctor's testimonial or description..."></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Profile Image</label>
+                  <input type="file" @change="handleEditImageUpload" accept="image/*" />
+                  <small>Leave empty to keep the current image</small>
+                </div>
+
+                <div class="modal-actions">
+                  <button type="button" class="btn btn-secondary" @click="closeEditModal">
+                    Cancel
+                  </button>
+                  <button type="submit" class="btn btn-primary" :disabled="isUpdating">
+                    {{ isUpdating ? 'Updating...' : 'Update Doctor' }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
